@@ -1,0 +1,100 @@
+* {
+    -webkit-box-sizing:border-box;
+    box-sizing:border-box
+}
+
+#sliderContainer {
+    width: 400px;
+    height: 500px;
+}
+
+.slideElement{
+    position: absolute;
+    top: 0;
+    visibility: hidden;
+    opacity:0;
+}
+.slideElement img{
+    max-width: 800px;
+    height: auto;
+    max-height: 500px;
+}
+
+.visible{
+    visibility: visible;
+    -webkit-transition: opacity 1s linear;
+    -o-transition: opacity 1s linear;
+    transition: opacity 1s linear;
+    position: absolute;
+    top: 0;
+    opacity:1
+}
+
+figcaption {
+    position: absolute;
+    color: white;
+    font-size: 2rem;
+    background-color: rgba(0,0,0,0.5);
+    width: 100%;
+    bottom: 0;
+    text-align: center;
+}
+
+#map{
+    margin-left: 100px;
+    margin-top: 100px;
+    width: 700px;
+    height: 700px;
+}
+
+.infos {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#stationInfos {
+    border: solid 1px #7c7c7c;
+    padding: 2rem;
+    width: 350px;
+}
+
+.open{
+    color : green;
+}
+
+.closed{
+    color: red;
+}
+
+.noAvailableBikes{
+    color: orangered;
+}
+
+.signature{
+    display: none;
+    position: absolute;
+    z-index: 1001;
+    background: white;
+    left: 25%;
+    padding: 2rem;
+    border: solid 2px;
+}
+
+.canvas{
+    border : solid 1px;
+}
+
+.alert{
+    color: red;
+}
+
+.timer{
+    display: none;
+    text-align: center;
+    font-size: 2rem;
+}
+
+#station{
+    font-weight: bold;
+}

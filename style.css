@@ -4,8 +4,7 @@
 }
 
 #sliderContainer {
-    width: 400px;
-    height: 500px;
+    height: 600px;
 }
 
 .slideElement{
@@ -41,16 +40,20 @@ figcaption {
 }
 
 #map{
-    margin-left: 100px;
-    margin-top: 100px;
     width: 700px;
     height: 700px;
 }
 
-.infos {
+.infosMap {
     display: flex;
     align-items: center;
     justify-content: space-around;
+}
+
+.infos{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #stationInfos {
@@ -69,6 +72,11 @@ figcaption {
 
 .noAvailableBikes{
     color: orangered;
+}
+
+.signed{
+    border: solid 1px;
+    margin-top: 20px;
 }
 
 .signature{

@@ -106,3 +106,7 @@ figcaption {
 #station{
     font-weight: bold;
 }
+
+#expired{
+    display: none;
+}

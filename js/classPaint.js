@@ -102,8 +102,7 @@ class Paint {
     clearCanvas() {
         const resetButton = document.getElementById('reset');
         resetButton.addEventListener('click', () => {
-            this.context.clearRect(0,0, this.canvas.width, this.canvas.height);
-            this.painted = false;
+            this.resetCanvas();
         });
         this.mouseX = 0;
         this.mouseY = 0;
@@ -115,5 +114,10 @@ class Paint {
     
     saveCanvas(){
         this.canvasData = this.canvas.toDataURL();
+    }
+    
+    resetCanvas(){
+        this.context.clearRect(0,0, this.canvas.width, this.canvas.height);
+        this.painted = false;
     }
 }//end class Paint

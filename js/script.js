@@ -39,7 +39,15 @@ window.onload = () => {
     //si on clique sur le bouton de réservation le canvas apparait; 
     const signature = document.getElementById("signature");
     $("#stationInfos").on('click','.reservation', () => {
+        
         signature.style.display= "block";
+        
+        if(sessionStorage.min && sessionStorage.sec){
+           const alert = document.createElement("p");
+           alert.className = "alert";
+           alert.appendChild(document.createTextNode("Vous avez déjà une réservation en cours. Valider une nouvelle réservation annulera la précédente. Merci."));
+           $("#signature h1").after(alert);
+       }
     });
    
    
@@ -52,25 +60,24 @@ window.onload = () => {
            signature.appendChild(alert);
        }
        else if(myCanvas.painted === true){
+
            myCanvas.saveCanvas();
-           sessionStorage.setItem("imgSignature", myCanvas.canvasData);
+           myCanvas.resetCanvas();
            signature.style.display= 'none';
+           const timer = new Timer(0,20);
            
-           document.getElementById("timer").style.display = "block";
-           const title = document.getElementById("stationName");
-           const stationName = title.innerHTML;
-           document.getElementById("station").innerHTML = stationName;
-           const timer = new Timer(0,5)
-           
-           const divSignature = document.getElementById("imgSignature");
-           const imgSignature = document.createElement("img");
-           imgSignature.src = sessionStorage.imgSignature;
-           imgSignature.alt = "Image Signature";
-           divSignature.className = "signed";
-           divSignature.appendChild(imgSignature);
-           
-           reservation.signature = sessionStorage.imgSignature;
-           reservation.chrono = timer.time;
+           const myBooking = new Booking(myCanvas.canvasData, timer.time);
+           if(sessionStorage.min && sessionStorage.sec){
+               console.log(timer.time);
+               myBooking.clear();
+               myBooking.create();
+               
+           }else{
+              
+           myBooking.create();
+           }
+
+
        }
    });
    
@@ -78,4 +85,11 @@ window.onload = () => {
        signature.style.display= "none";
    })
    
+   if(sessionStorage.min && sessionStorage.sec){
+       let minute = Number(sessionStorage.min);
+       let second = Number(sessionStorage.sec);
+       const timer2 = new Timer(minute, second);
+       const booking = new Booking(sessionStorage.signature, timer2.time);
+       booking.recovery();
+   }
 }// -- end window.onload --

@@ -1,14 +1,18 @@
 class Timer{
     constructor(ms=1200000, minTimer="min", secTimer="sec", textTimerContainer="textTimer"){
-        this.time = ms/1000;
-        this.calcMinutes();       
-        this.calcSeconds();       
+        this.time = ms/1000;      
+        this.init();
         this.minTimer = document.getElementById(minTimer);       
         this.secTimer = document.getElementById(secTimer);
         this.textTimerContainer = document.getElementById(textTimerContainer);
         this.minTimer.textContent = this.minute;  
         this.secTimer.textContent = this.second;
         this.endTimeEvent = new Event('endTimeEvent', {bubbles:true});
+    }
+    
+    init(){
+        this.calcMinutes();       
+        this.calcSeconds();
         this.startDecrease();
     }
   
@@ -25,7 +29,7 @@ class Timer{
             this.stop()     
             }
         }, 1000);
-    }// end start
+    }//--end startDecrease --
     
     stop(){
         clearInterval(this.interval);

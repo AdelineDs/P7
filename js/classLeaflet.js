@@ -26,7 +26,7 @@ class LeafletMap{
                     const infosContainer = document.getElementById("stationInfos");
                     infosContainer.innerHTML= "";
                     
-                    const title = document.createElement("h3");
+                    const title = document.createElement("h2");
                     title.id = "stationName";
                     title.appendChild(document.createTextNode(station.name));
                     
@@ -34,10 +34,10 @@ class LeafletMap{
                     address.appendChild(document.createTextNode(station.address));
                     
                     const availableBikeStands = document.createElement("p");
-                    availableBikeStands.appendChild(document.createTextNode(`Nombre de points d'attache disponibles : ${station.available_bike_stands}`));
+                    availableBikeStands.appendChild(document.createTextNode(`${station.available_bike_stands} places`));
                     
                     const availableBikes = document.createElement("p");
-                    availableBikes.appendChild(document.createTextNode(`Nombre de vélos disponibles : ${station.available_bikes}`));
+                    availableBikes.appendChild(document.createTextNode(`${station.available_bikes} vélos disponibles`));
                     
                     const status = document.createElement("p");
                     if(station.status === "OPEN"){

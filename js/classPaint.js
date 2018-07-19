@@ -67,8 +67,8 @@ class Paint {
          this.canvas.addEventListener("touchstart", (e) => {
             let touch = e.touches[0];
             this.paint = true;
-            this.mouseX = touch.pageX - this.canvas.getBoundingClientRect().left;
-            this.mouseY = touch.pageY - (this.canvas.getBoundingClientRect().top+window.scrollX);
+            this.mouseX = touch.clientX - this.canvas.getBoundingClientRect().left;
+            this.mouseY = touch.clientY - (this.canvas.getBoundingClientRect().top+window.scrollX);
             this.lastPosition = {
                 x: this.mouseX,
                 y: this.mouseY
@@ -78,8 +78,8 @@ class Paint {
         this.canvas.addEventListener("touchmove", (e)=> {
              if(this.paint){
                 let touch = e.touches[0];
-                this.mouseX = touch.pageX - this.canvas.getBoundingClientRect().left;
-                this.mouseY = touch.pageY - (this.canvas.getBoundingClientRect().top+window.scrollX);
+                this.mouseX = touch.clientX - this.canvas.getBoundingClientRect().left;
+                this.mouseY = touch.clientY - (this.canvas.getBoundingClientRect().top+window.scrollX);
                 this.context.beginPath();
                 this.context.moveTo(this.lastPosition.x, this.lastPosition.y);
                 this.context.lineTo(this.mouseX, this.mouseY);

@@ -5,54 +5,25 @@ class BookingManager{
         this.timerStationName = document.getElementById("station");
         this.signatureContainer = document.getElementById("imgSignature");
         this.imgSignature = document.createElement("img");
-        this.timer;
         this.canvasContainer = document.getElementById("signature");
+        this.init();
+        
+    }//-- end constructor --
+    
+    init(){
         this.myCanvas = new Paint();
-        
-        if(sessionStorage.dateExpiration){
-            let dateExpiration = Number(sessionStorage.dateExpiration);
-            let time = dateExpiration - Date.now();
-            this.timer = new Timer(time);
-            this.recovery();
-        }
-        
-        $("#stationInfos").on('click','.booking', () => {
+        this.displayCanvas()
+        this.submitCanvas();
+        this.resetCanvas();
+        this.endTimeEvent();
+        this.refresh();
+    }//-- end init --
+    
+    displayCanvas(){
+         $("#stationInfos").on('click','.booking', () => {
             this.canvasContainer.style.display= "block";
         });
-        
-       
-        //clique sur le bouton valider du canvas 
-        $('#submit').on('click', () =>{
-            if(this.myCanvas.painted){
-                if(sessionStorage.dateExpiration){
-                    this.timer.stop();
-                }
-                this.myCanvas.saveCanvas();
-                this.myCanvas.resetCanvas();
-                this.signature = this.myCanvas.canvasData;
-                this.canvasContainer.style.display= 'none';
-                this.station = document.getElementById("stationName");
-                this.timer = new Timer(30000);
-                this.expiration = Date.now() + (this.timer.time*1000);
-                this.stationName = this.station.innerHTML;
-                this.bookingButton = document.getElementById("booking");
-                this.create();
-            }else{
-                const alert = document.createElement("p");
-                alert.className = "alert";
-                alert.appendChild(document.createTextNode("Merci de signer avant de valider !"));
-                this.canvasContainer.appendChild(alert);
-            }
-        });
-       
-        $('#reset').on('click', ()=>{
-            this.canvasContainer.style.display= "none";
-        })
-
-        document.addEventListener('endTimeEvent', () => {
-            this.clear();
-        })
-    }//-- end constructor --
+    }//-- end displayCanvas --
     
     create(){
         if(this.textTimer.style.display === "none"){ 
@@ -74,6 +45,15 @@ class BookingManager{
         
 
     }//-- end create --
+    
+    refresh(){
+         if(sessionStorage.dateExpiration){
+            let dateExpiration = Number(sessionStorage.dateExpiration);
+            let time = dateExpiration - Date.now();
+            this.timer = new Timer(time);
+            this.recovery();
+        }
+    }//-- end refresh --
     
     recovery(){
        this.imgSignatureCreation();
@@ -97,6 +77,42 @@ class BookingManager{
         this.imgSignature.alt = "Image Signature";
         this.signatureContainer.className = "signed";
         this.signatureContainer.appendChild(this.imgSignature);
-        
     }
+    
+    submitCanvas(){
+        $('#submit').on('click', () =>{
+            if(this.myCanvas.painted){
+                if(sessionStorage.dateExpiration){
+                    this.timer.stop();
+                }
+                this.myCanvas.saveCanvas();
+                this.myCanvas.resetCanvas();
+                this.signature = this.myCanvas.canvasData;
+                this.canvasContainer.style.display= 'none';
+                this.station = document.getElementById("stationName");
+                this.timer = new Timer(30000);
+                this.expiration = Date.now() + (this.timer.time*1000);
+                this.stationName = this.station.innerHTML;
+                this.bookingButton = document.getElementById("booking");
+                this.create();
+            }else{
+                const alert = document.createElement("p");
+                alert.className = "alert";
+                alert.appendChild(document.createTextNode("Merci de signer avant de valider !"));
+                this.canvasContainer.appendChild(alert);
+            }
+        });  
+    }//-- end submitCanvas --
+    
+    resetCanvas(){
+        $('#reset').on('click', ()=>{
+            this.canvasContainer.style.display= "none";
+        })
+    }//-- end resetCanvas --
+    
+    endTimeEvent(){
+        document.addEventListener('endTimeEvent', () => {
+            this.clear();
+        })
+    }//-- end endTimeEvent
 }

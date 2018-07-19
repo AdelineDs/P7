@@ -51,8 +51,8 @@ class LeafletMap{
                     
                     const button = document.createElement("input");
                     button.type = "button";
-                    button.id = "reservation";
-                    button.className = "reservation";
+                    button.id = "booking";
+                    button.className = "booking";
                     button.value = "Réserver";
                     
                     const noAvailableBikes = document.createElement("p");

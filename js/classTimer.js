@@ -1,13 +1,14 @@
 class Timer{
-    constructor(minute=20, second=0, minTimer="min", secTimer="sec", textTimerContainer="textTimer"){
-        this.minute = minute;       
-        this.second = second;       
+    constructor(ms=1200000, minTimer="min", secTimer="sec", textTimerContainer="textTimer"){
+        this.time = ms/1000;
+        this.calcMinutes();       
+        this.calcSeconds();       
         this.minTimer = document.getElementById(minTimer);       
         this.secTimer = document.getElementById(secTimer);
         this.textTimerContainer = document.getElementById(textTimerContainer);
-        this.time = (this.minute*60)+this.second;
         this.minTimer.textContent = this.minute;  
         this.secTimer.textContent = this.second;
+        this.endTimeEvent = new Event('endTimeEvent', {bubbles:true});
         this.startDecrease();
     }
   
@@ -16,13 +17,11 @@ class Timer{
         this.interval = chrono;
         this.time--; 
         if(this.time > 0){         
-            this.minute = Math.floor(this.time/60);     
-            this.second = Math.floor(this.time-(this.minute*60));
+            this.calcMinutes();     
+            this.calcSeconds();
             this.minTimer.textContent = this.minute;       
             this.secTimer.textContent = this.second;
-            this.saveTime();
         }else{
-            this.removeTime();
             this.stop()     
             }
         }, 1000);
@@ -30,14 +29,14 @@ class Timer{
     
     stop(){
         clearInterval(this.interval);
+        document.dispatchEvent(this.endTimeEvent);  
     }
     
-    saveTime(){
-        sessionStorage.setItem("min", this.minute);
-        sessionStorage.setItem("sec", this.second);
+    calcMinutes(){
+        this.minute =Math.floor(this.time/60);
     }
     
-    removeTime(){
-        sessionStorage.clear();
+    calcSeconds(){
+        this.second = Math.floor(this.time-(this.minute*60));
     }
 }//-- end class Timer -- 

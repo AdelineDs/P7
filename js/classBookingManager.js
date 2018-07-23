@@ -69,7 +69,9 @@ class BookingManager{
         document.getElementById("expired").style.display = "block";
         this.signatureContainer.innerHTML = "";
         this.bookingButton = document.getElementById("booking");
-        this.bookingButton.style.display = "block";
+        if(this.bookingButton){
+             this.bookingButton.style.display = "block";
+        }
     }//-- end clear --
     
     imgSignatureCreation(){
@@ -77,7 +79,7 @@ class BookingManager{
         this.imgSignature.alt = "Image Signature";
         this.signatureContainer.className = "signed";
         this.signatureContainer.appendChild(this.imgSignature);
-    }
+    }//--end ingSignatureCreation --
     
     submitCanvas(){
         $('#submit').on('click', () =>{
@@ -90,11 +92,12 @@ class BookingManager{
                 this.signature = this.myCanvas.canvasData;
                 this.canvasContainer.style.display= 'none';
                 this.station = document.getElementById("stationName");
-                this.timer = new Timer(30000);
+                this.timer = new Timer(20000);
                 this.expiration = Date.now() + (this.timer.time*1000);
                 this.stationName = this.station.innerHTML;
                 this.bookingButton = document.getElementById("booking");
                 this.create();
+                $('html,body').animate({scrollTop: $("#timer").offset().top}, 'slow');
             }else{
                 const alert = document.createElement("p");
                 alert.className = "alert";

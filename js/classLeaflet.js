@@ -11,8 +11,33 @@ class LeafletMap{
     
     init(){
         this.myMap = L.map(this.map).setView(this.latLng,this.zoom);
+        this.markersCluster = L.markerClusterGroup();
         L.tileLayer(this.layer, {minZoom: this.minZoom, maxZoom: this.maxZoom}).addTo(this.myMap);
-        this.marker;
+        this.myMap.addLayer(this.markersCluster);
+        this.redIcon = new L.Icon({
+            iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+          });
+          this.orangeIcon = new L.Icon({
+            iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-orange.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+          });
+          this.greenIcon = new L.Icon({
+            iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+          });
     }
     
     stationsRecovery(source){
@@ -20,7 +45,18 @@ class LeafletMap{
             let stationsList = JSON.parse(reponse);
             stationsList.forEach(station => {
                 this.latLng = [station.position.lat, station.position.lng];
-                this.marker = L.marker(this.latLng).addTo(this.myMap);
+                if(station.status === "CLOSED"){
+                    this.marker = L.marker(this.latLng, {icon: this.redIcon});
+                    this.markersCluster.addLayer(this.marker);
+                }
+                else if(station.status === "OPEN" && station.available_bikes ===0){
+                    this.marker = L.marker(this.latLng, {icon: this.orangeIcon});
+                    this.markersCluster.addLayer(this.marker);
+                }
+                else{
+                    this.marker = L.marker(this.latLng, {icon: this.greenIcon});
+                    this.markersCluster.addLayer(this.marker);
+                }
                 
                 this.marker.on('click', e => {
                     const infosContainer = document.getElementById("stationInfos");

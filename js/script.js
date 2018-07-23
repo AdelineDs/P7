@@ -3,7 +3,7 @@ window.onload = () => {
         const images = [
         {
             nom: 'img/01.jpg',
-            desc: 'Bienvenue sur votre service de réservation de vélo Vélo\'v'
+            desc: 'Bienvenue sur votre service de réservation Vélo\'v de la ville de Lyon'
         }, 
         {
             nom: 'img/02.jpg',
@@ -11,22 +11,26 @@ window.onload = () => {
         },
         {
             nom: 'img/03.jpg',
-            desc: 'Vérifiez la disponibilité en temps réel'
+            desc: 'Vérifiez l\'état de la station et  la disponibilité en temps réel'
         },
         {
             nom: 'img/04.jpg',
-            desc: 'Signez pour réserver votre vélo'
+            desc: 'Cliquez sur \'Réserver\' ! '
         },
         {
             nom: 'img/05.jpg',
+            desc: 'Signez pour réserver votre Vélo\'v'
+        },
+        {
+            nom: 'img/08.jpg',
             desc: 'On vous confirme la réservation'
         },
         {
-            nom: 'img/07.jpg',
+            nom: 'img/06.jpg',
             desc: 'Vous avez 20 minutes pour le retirer à la station choisie'
         },
         {
-            nom: 'img/06.jpg',
+            nom: 'img/07.jpg',
             desc: 'Profitez !'
         }
     ];

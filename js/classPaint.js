@@ -86,6 +86,7 @@ class Paint {
                 this.context.closePath();
                 this.context.strokeStyle;
                 this.context.stroke();
+                this.painted = true;
                 this.lastPosition = {
                   x: this.mouseX,
                   y: this.mouseY
